@@ -1,0 +1,24 @@
+#container {
+  background-color: red;
+  text-align: center;
+  font-size: 90px;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  height: 400px;
+  height: 400px;
+}
+
+.board {
+  background-color:bisque;
+  height: auto;
+  width: auto;
+  border: 2px solid black;
+  padding: 10px;
+}
+
+/* .tile1 {
+  background-color: aqua;
+} */
