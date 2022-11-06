@@ -3,46 +3,48 @@
 //     Your main goal here is to have as little global code as possible. Try tucking everything away inside of a module or factory. Rule of thumb: if you only ever need ONE of something (gameBoard, displayController), use a module. If you need multiples of something (players!), create them with factories.
 
 // Set up your HTML and write a JavaScript function that will render the contents of the gameboard array to the webpage (for now you can just manually fill in the array with "X"s and "O"s)
-// for (let i = 1; i < 10; i++) {
-//   const tile = "tile" + [i]
-//   tile[i] = document.querySelector(".tile" + [i])
-//   console.log(tile) 
+
+
+
+// function e() {
+//   console.log("click")
 // }
 
-
-
-function e() {
-  console.log("click")
-
-}
-// const tile1 = document.querySelector(".tile1")
-// const tile1 = document.querySelector(".tile1")
-// const tile1 = document.querySelector(".tile1")
-// const tile1 = document.querySelector(".tile1")
-// const tile1 = document.querySelector(".tile1")
-// const tile1 = document.querySelector(".tile1")
-// const tile1 = document.querySelector(".tile1")
 const game = (() => {
+// let e = () => {
 
-  const tiles = document.querySelectorAll("[data-tile]");
-  tiles.forEach(tile => {
-   tile.addEventListener("click", e, {once: true});
-  });
+// }
+  // const tiles = document.querySelectorAll("[data-tile]");
+  // tiles.forEach(tile => {
+  //  tile.addEventListener("click", gameBoard, {once: true});
+  // });
 
+  // gameBoard.push(e)
 
-  // const Gameboard = {
-    //   ["empty"]
-    // };
+  const gameBoard = () => {
+    const tiles = document.querySelectorAll("[data-tile]");
+    tiles.forEach(tile => {
+      tile.addEventListener("click", { once: true });
+    });
+
+    const arrayOfTiles = Array.from(tiles); //converts nodelist to array 
+    console.log(arrayOfTiles);
     
-    // const Players = {
+    // arrayOfTiles.push(tiles);
+
+
+  };
+    // const players = {
       
     // }
     
-    // const GameControl = e => {
+    // const gameControl = e => {
   
     //   console.log(e);
     // }
-
+    return {
+      gameBoard
+    }
 })()
 
 
