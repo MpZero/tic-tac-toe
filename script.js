@@ -1,17 +1,13 @@
 const game = (() => {
 
-  // let arrayTiles = [
-  //   "Z", "X", "X",
-  //   "O", "O", "O", 
-  //   "O", "O", "Z", 
-  // ];
-
+  //Array to be filled with marks
   let arrayTiles = [
     "", "", "",
     "", "", "",
     "", "", "",
   ];
 
+  //Winning combinations
   const winningCombos = [
     [0, 1, 2],
     [3, 4, 5],
@@ -23,11 +19,12 @@ const game = (() => {
     [2, 4, 6]
   ];
 
-  let currentPlayer = "X";
+  let currentPlayer = "X"
 
-  //set up the gameboard
+  let markedTiles = 0
+
+  //Set up the gameboard
   const gameBoard = () => {
-
 
     //Select all html tiles // tilesEl = NodeList
     const tilesEl = document.querySelectorAll("[data-tile]");
@@ -39,18 +36,17 @@ const game = (() => {
         putMark(e.target)
       }, { once: true });
     });
-    // console.log(tiles)
 
-    //converts tiles from NodeList to Array 
+    //Converts tiles from NodeList to Array 
     const arrayOfTilesEl = Array.from(tilesEl);
 
-    console.log(arrayOfTilesEl);
+    // console.log(arrayOfTilesEl);
 
 
   };
 
 
-  //player factory
+  //Player factory
   const player = (name, shape) => {
     const getName = () => name;
     const getShape = () => shape;
@@ -59,50 +55,51 @@ const game = (() => {
 
   }
 
-
+  //Modifies the array and the html tiles
   function putMark(e) {
 
     let currentTile = e.dataset.tile.slice(4)
- 
+
     if (currentPlayer == "X") {
       e.innerText = player1.getShape()
+      arrayTiles[currentTile] = player1.getShape()
       currentPlayer = "O"
-      arrayTiles[currentTile] = "X"
-      console.log(arrayTiles)
-      //function that reloads the array
-    } else {
+      markedTiles++
+    } else if (currentPlayer == "O") {
       e.innerText = player2.getShape()
+      arrayTiles[currentTile] = player2.getShape()
       currentPlayer = "X"
-      arrayTiles[currentTile] = "O"
-      console.log(arrayTiles)
-      //function that reloads the array
+      markedTiles++
+    }
+    //Call this function to check for a winner after every turn
+    checkWinner()
+  }
+
+
+  function checkWinner() {
+
+    //Iterate over the winningCombos arrays
+    for (const condition of winningCombos) {
+
+      //Select every position in WinningCombos corresponding with a, b, and c
+      let [a, b, c] = condition
+
+      //Check if arrayTiles got the same mark corresponding to a condition combination; 
+      if (arrayTiles[a] == arrayTiles[b] && arrayTiles[a] == arrayTiles[c] && arrayTiles[a] != "" && arrayTiles) {
+        return console.log("Winner")
+      } else if (markedTiles == 9 && currentPlayer == "O") {
+        return console.log("Draw")
+      }
 
     }
 
   }
-
-  function winner() {
-
-  }
-
-  function gameLogic() {
-    //best of 5 wins the game
-    //reset board
-
-    //player wins when 3 marks are displayed in a straight line
-    //reset board
-
-    //draw is possible
-    //reset board
-  }
-
 
 
   return {
     gameBoard,
     player,
     putMark,
-    // reloadArray,
   }
 
 })()
@@ -116,6 +113,5 @@ const player2 = game.player("player2", "O")
 // console.log(player1.getShape())
 // console.log(player2.getName())
 // console.log(player2.getShape())
-
 
 game.gameBoard()
