@@ -1,24 +1,124 @@
+html {
+  box-sizing: border-box;
+
+  --main-color: #e0e0e0;
+  --main-light: #ffffff;
+  --main-dark: #aeaeae;
+
+  --secondary-color: #757575;
+  --secondary-dark: #494949;
+  --secondary-light: #a4a4a4;
+  background-color: gray;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+ 
+}
+
 #container {
-  background-color: red;
+  font-family: 'Caveat', cursive;
+  font-family: 'Roboto Mono', monospace;
+  font-family: 'Rubik', sans-serif;
+
+  color: #000000;
+  font-size: 45px;
+  background-color: var(--main-color);
   text-align: center;
-  font-size: 90px;
+
+  
   display: grid;
   justify-content: center;
   align-content: center;
+  grid-template-columns: 0.5fr 1fr 0.5fr;
+  grid-template-rows: 0.25fr 1fr;
+  grid-template-areas:
+    "title title title"
+    "player1 board player2"
+  ;
+  height: 100vh;
+}
+
+#title-container {
+  grid-area: title;
+  background-color: var(--main-color);
+  padding: 12px;
+  
+  display: grid;
+  align-self: center;
+}
+
+#player1-container {
+  grid-area: player1;
+}
+
+#player2-container {
+  grid-area: player2;
+}
+
+#player1-container,
+#player2-container {
+  background-color: var(--main-dark);
+  padding: 8px;
+  font-size: 30px;
+}
+
+#player-info {
+  background-color: var(--secondary-color);
+  display:grid;
+  gap: 8px;
+  margin: 8px;
+  padding: 8px;
+  border-radius: 4px;
+  box-shadow: 1px 1px 4px black;
+}
+
+
+
+.player-element {
+  background-color: var(--main-light);
+  border-radius: 4px;
+}
+
+#board-container {
+  grid-area: board;
+  background-color: var(--secondary-color);
+  min-width: 400px;
+  padding: 30px;
+
+  display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-  height: 400px;
-  height: 400px;
+  grid-template-rows: 1fr 1fr 1fr 0.25fr;
 }
 
 .board {
-  background-color:bisque;
-  height: auto;
-  width: auto;
-  border: 2px solid black;
+  border: 2px solid var(--secondary-color);
   padding: 10px;
+  font-size: 100px;
+  background-color: var(--main-light);
 }
 
-/* .tile1 {
-  background-color: aqua;
-} */
+.board:hover {
+  background-color: var(--secondary-light);
+}
+
+#reset-button-container {
+  grid-column: 1/4;
+}
+
+#reset-button {
+  padding: 0px 25px 0px;
+  border: none;
+  border-radius: 25px;
+  font-size: 25px;
+  font-weight: bold;
+  color: black;
+  background-color: var(--main-light);
+  box-shadow: 1px 1px 8px black;
+}
