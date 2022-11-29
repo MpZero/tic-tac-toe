@@ -1,6 +1,8 @@
 html {
   box-sizing: border-box;
+}
 
+:root {
   --main-color: #e0e0e0;
   --main-light: #ffffff;
   --main-dark: #aeaeae;
@@ -8,9 +10,7 @@ html {
   --secondary-color: #757575;
   --secondary-dark: #494949;
   --secondary-light: #a4a4a4;
-  background-color: gray;
 }
-
 *,
 *::before,
 *::after {
@@ -52,6 +52,10 @@ body {
   
   display: grid;
   align-self: center;
+}
+
+#title {
+  margin: 0;
 }
 
 #player1-container {
@@ -99,13 +103,21 @@ body {
 
 .board {
   border: 2px solid var(--secondary-color);
-  padding: 10px;
+  /* padding: 10px; */
   font-size: 100px;
   background-color: var(--main-light);
+  cursor: pointer;
+
 }
 
-.board:hover {
+.board:hover,
+#reset-button:hover {
   background-color: var(--secondary-light);
+}
+
+.marked:hover {
+  background-color: var(--main-light);
+  cursor: default;
 }
 
 #reset-button-container {
@@ -121,4 +133,21 @@ body {
   color: black;
   background-color: var(--main-light);
   box-shadow: 1px 1px 8px black;
+}
+
+#reset-button:hover {
+  background-color: var(--secondary-light);
+  color: white;
+  text-shadow: 1px 2px 4px black;
+  cursor: pointer;
+}
+
+.player1-turn,
+.player2-turn{
+  color: white;
+  background-color: var(--secondary-light);
+  text-shadow: 1px 2px 4px black;
+
+
+
 }
