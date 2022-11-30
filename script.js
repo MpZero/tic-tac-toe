@@ -19,35 +19,36 @@ const game = (() => {
     [2, 4, 6]
   ];
 
-  let title = document.getElementById("title")
   let currentPlayer = "X"
   let player1Score = 0
   let player2Score = 0
+  let markedTiles = 0 
+  let title = document.getElementById("title")
   let scoreText1 = document.getElementById("scoreP1")
   let scoreText2 = document.getElementById("scoreP2")
-  let markedTiles = 0
   let tilesEl = document.querySelectorAll("[data-tile]");
 
   const player1Container = document.querySelector(".player1-container")
   const player2Container = document.querySelector(".player2-container")
-
   const resetButton = document.getElementById("reset-button")
-
-  console.log(resetButton)
-
-  let boardArray = Array.from(document.getElementsByClassName("board"))
+  const player1Text = document.querySelector("#player1Text")
+  const player2Text = document.querySelector("#player2Text")
+  
+console.log(player1Text)
+console.log(player2Text)
+  let boardArray = Array.from(tilesEl)
 
   //Set up the gameboard
   const gameBoard = () => {
     player1Container.classList.add("player1-turn")
 
 
-    resetButton.addEventListener("click", reset)
+    resetButton.addEventListener("click", btnReset)
     //Select all html tiles // tilesEl = NodeList
 
     //Add listener for clicks(one per clicked tile) on each tile
     //Call putMark() to change the text content
-    tilesEl.forEach(tile => {
+    boardArray.forEach(tile => {
       tile.addEventListener("click", (e) => {
         putMark(e.target)
       })
@@ -55,7 +56,6 @@ const game = (() => {
     });
 
     //Converts tiles from NodeList to Array 
-    const arrayOfTilesEl = Array.from(tilesEl);
 
     // console.log(arrayOfTilesEl);
 
@@ -77,30 +77,33 @@ const game = (() => {
 
     let currentTile = e.dataset.tile.slice(4)
 
-    if (currentPlayer == "X") {
-      player1Container.classList.remove("player1-turn")
-      // playerElChild.classList.remove("p2Turn")
-      player2Container.classList.add("player2-turn")
-      e.innerText = player1.getShape()
-      arrayTiles[currentTile] = player1.getShape()
-      e.classList.add("marked")
-      currentPlayer = "O"
-      markedTiles++
-    } else if (currentPlayer == "O") {
-      player2Container.classList.remove("player2-turn")
-      player1Container.classList.add("player1-turn")
+    if (e.classList[2] != "marked") {
+      if (currentPlayer == "X") {
+        player1Container.classList.remove("player1-turn")
+        player2Container.classList.add("player2-turn")
+        e.innerText = player1.getShape()
+        arrayTiles[currentTile] = player1.getShape()
+        e.classList.add("marked")
+        currentPlayer = "O"
+        markedTiles++
 
-      // playerElChild.classList.remove("p1Turn")
-      e.innerText = player2.getShape()
-      arrayTiles[currentTile] = player2.getShape()
-      e.classList.add("marked")
-      currentPlayer = "X"
-      markedTiles++
+      } else if (currentPlayer == "O") {
+        player2Container.classList.remove("player2-turn")
+        player1Container.classList.add("player1-turn")
+        e.innerText = player2.getShape()
+        arrayTiles[currentTile] = player2.getShape()
+        e.classList.add("marked")
+        currentPlayer = "X"
+        markedTiles++
+      }
     }
+   
     //Call this function to check for a winner after every turn
     console.log(markedTiles)
     checkWinner()
   }
+
+
 
 
   function checkWinner() {
@@ -115,24 +118,28 @@ const game = (() => {
       if (arrayTiles[a] == arrayTiles[b] && arrayTiles[a] == arrayTiles[c] && arrayTiles[a] != "" && currentPlayer == "O") {
         player1Score++
         scoreText1.innerText = "Score: " + player1Score
-        title.innerText = player1.getName() + " Wins!"
+        title.innerText = player1.getName() + " Wins!" 
         return reset()
       } else if (arrayTiles[a] == arrayTiles[b] && arrayTiles[a] == arrayTiles[c] && arrayTiles[a] != "" && currentPlayer == "X") {
         player2Score++
         scoreText2.innerText = "Score: " + player2Score
         title.innerText = player2.getName() + " Wins!"
-
         return reset()
-      } else if (markedTiles == 9 && currentPlayer == "O") {
-        console.log("Draw")
+      } else if (markedTiles == 9) {
         title.innerText = "It's a draw!"
-
         return reset()
       }
 
 
     }
 
+  }
+
+
+  function btnReset() {
+    resetScores()
+    title.innerText = "Tic-Tac-Toe"
+    reset()
   }
 
   function reset() {
@@ -151,18 +158,14 @@ const game = (() => {
     currentPlayer = "X"
     markedTiles = 0
 
-    if (player1Score == 5 ) {
-      player1Score = 0
-      player2Score = 0
-      scoreText1.innerText = "Score: " + 0
-      scoreText2.innerText = "Score: " + 0
+    if (player1Score == 1 ) {
+      resetScores()
       title.innerText = player1.getName() + " Won 5 Games!"  
+      let p1 = player1Container.children
+      p1.innerText = "🏆"
       
     } else if ( player2Score == 5) {
-      player1Score = 0
-      player2Score = 0
-      scoreText1.innerText = "Score: " + 0
-      scoreText2.innerText = "Score: " + 0
+      resetScores()
       title.innerText = player2.getName() + " Won 5 Games!"
     }
     boardArray.forEach(resetDOM)
@@ -172,6 +175,13 @@ const game = (() => {
   function resetDOM(element) {
     element.innerText = ""
     element.classList.remove("marked")
+  }
+
+  function resetScores() {
+    player1Score = 0
+    player2Score = 0
+    scoreText1.innerText = "Score: " + 0
+    scoreText2.innerText = "Score: " + 0
   }
 
 
