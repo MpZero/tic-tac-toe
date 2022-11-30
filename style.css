@@ -65,8 +65,16 @@ body {
 #player1Text,
 #player2Text {
   margin: 0;
-  padding: 40px;
+  padding: 10px;
 }
+
+#player1Trophy,
+#player2Trophy {
+
+  margin: 0;
+  padding: 10px;
+}
+
 
 #player2-container {
   grid-area: player2;

@@ -31,11 +31,9 @@ const game = (() => {
   const player1Container = document.querySelector(".player1-container")
   const player2Container = document.querySelector(".player2-container")
   const resetButton = document.getElementById("reset-button")
-  const player1Text = document.querySelector("#player1Text")
-  const player2Text = document.querySelector("#player2Text")
-  
-console.log(player1Text)
-console.log(player2Text)
+  const player1Trophy = document.querySelector("#player1Trophy")
+  const player2Trophy = document.querySelector("#player2Trophy")
+
   let boardArray = Array.from(tilesEl)
 
   //Set up the gameboard
@@ -158,15 +156,17 @@ console.log(player2Text)
     currentPlayer = "X"
     markedTiles = 0
 
-    if (player1Score == 1 ) {
+    if (player1Score == 5 ) {
       resetScores()
       title.innerText = player1.getName() + " Won 5 Games!"  
-      let p1 = player1Container.children
-      p1.innerText = "🏆"
+      player1Trophy.innerText = player1Trophy.innerText + "🏆 "
       
     } else if ( player2Score == 5) {
       resetScores()
       title.innerText = player2.getName() + " Won 5 Games!"
+      player2Trophy.innerText = player2Trophy.innerText + "🏆 "
+      
+
     }
     boardArray.forEach(resetDOM)
 
